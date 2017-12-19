@@ -4,19 +4,19 @@ clear; % 変数をすべて削除
 L = 4; % ひも長さ
 tmax = 10; % 時刻の最大値
 nx = 40; % 空間分割数
-nt = 800; % 時間分割数
+nt = 2000; % 時間分割数
 c = 4; % 波の速度
 mu = 0.5; % 粘性パラメータ
 
 h = 1 / (nx -1); % ひも１要素の長さ
 x = linspace(0, L, nx)'; % ｎｘ個の節点
 dt = tmax / (nt - 1); % １時間ステップの大きさ
-time = linspace(0, tmax, nt); % ｎｔ個時刻
+time = linspace(0, tmax, nt)'; % ｎｔ個時刻
 
  % 安定性チェック
-check_dt = mu + sqrt(mu * mu +(32 * c * c) / (h * h)) / ((8 * c * c) / (h * h));
+check_dt = (mu + sqrt(mu * mu +(16 * c * c) / (h * h))) / ((4 * c * c) / (h * h));
 if dt >= check_dt
-    exit()
+    quit()
 end
 
  % 定数計算
@@ -37,7 +37,7 @@ z(:, nx) = 0;
  % 各時刻の高さ
 for k = 2: nt - 1
     for i = 2: nx -1
-        z(k + 1, i) = c1 * z(k, i) + c2 * z(k - 1, i) + c3 * (z(k, i +1) + z(k, i - 1));
+        z(k + 1, i) = c1 * z(k, i) + c2 * z(k - 1, i) + c3 * (z(k, i + 1) + z(k, i - 1));
     end
 end
 
@@ -49,5 +49,5 @@ for k = 1: nt
     axis equal;
     axis ([0, L, -1, 1]);
     title(['time = ', num2str(time(k), '%.1f')]);
-    pause(0.1);
+    pause(0.001);
 end
