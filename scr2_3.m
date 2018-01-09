@@ -28,8 +28,8 @@ c3 = (2 * c * c * dt * dt / (h * h)) / (mu * dt + 2);
 z = zeros(nt, nx);
 
  % èâä˙âª
-z(1, :) = sin((2 * pi) / L * x);
-z(2, :) = sin((2 * pi) / L * x);
+z(1, :) = 2 * sin(2 * (2 * pi) / L * x);
+z(2, :) = 2 * sin(2 * (2 * pi) / L * x);
 
 z(:, 1) = 0;    
 z(:, nx) = 0;
@@ -47,7 +47,7 @@ for k = 1: nt
     clf;
     plot(x, z(k, :), 'ko');
     axis equal;
-    axis ([0, L, -1, 1]);
+    axis ([0, L, -2, 2]);
     title(['time = ', num2str(time(k), '%.1f')]);
     pause(0.001);
 end

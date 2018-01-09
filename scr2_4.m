@@ -28,11 +28,13 @@ c3 = (2 * c * c * dt * dt / (h * h)) / (mu * dt + 2);
 z = zeros(nt, nx);
 
  % èâä˙âª
-z(1, :) = sin((2 * pi) / L * x);
-z(2, :) = sin((2 * pi) / L * x);
+z(1, :) = 0;
+z(2, :) = 0;
 
-z(:, 1) = 0;    
-z(:, nx) = 0;
+for t = 1: nt
+    z(t, 1) = 0.2 * sin(5 * time(t));    
+    z(t, nx) = 0.2 * sin(5 * time(t));
+end
 
  % äeéûçèÇÃçÇÇ≥
 for k = 2: nt - 1
